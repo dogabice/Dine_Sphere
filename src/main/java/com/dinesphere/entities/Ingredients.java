@@ -3,6 +3,10 @@ package com.dinesphere.entities;
 import jakarta.persistence.*;
 import java.util.List;
 
+import lombok.Data;
+
+
+@Data
 @Entity
 @Table(name = "ingredients")
 public class Ingredients {

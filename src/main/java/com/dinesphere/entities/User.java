@@ -2,6 +2,10 @@ package com.dinesphere.entities;
 
 import jakarta.persistence.*;
 
+import lombok.Data;
+
+
+@Data
 @Entity
 @Table(name = "users")
 public class User {
@@ -17,7 +21,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserRole role; // Kullanıcı rolü (Admin, Garson, Kasa)
+    private UserRole role;
 
     // Getters and Setters
     public Long getUserId() {

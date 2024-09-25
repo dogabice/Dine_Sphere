@@ -3,6 +3,10 @@ package com.dinesphere.entities;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import lombok.Data;
+
+
+@Data
 @Entity
 @Table(name = "payments")
 public class Payments {

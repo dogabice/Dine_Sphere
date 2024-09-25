@@ -10,7 +10,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 
+import lombok.Data;
 
+
+@Data
 @Entity
 @Table(name = "servings")
 public class Servings {

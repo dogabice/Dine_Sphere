@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import lombok.Data;
+
+
+@Data
 @Entity
 @Table(name = "orders")
 public class Orders {
