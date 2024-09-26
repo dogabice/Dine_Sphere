@@ -17,7 +17,7 @@ public class OrdersMapper {
         dto.setTableId(order.getTable().getTableId()); 
         dto.setServingId(order.getServings().getServingId()); 
         dto.setProductIds(order.getProducts().stream()
-                                 .map(Products::getProductsId) 
+                                 .map(Products::getProductId) 
                                  .collect(Collectors.toList()));
         dto.setOrderTime(order.getOrderDate());
         return dto;

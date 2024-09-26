@@ -23,7 +23,7 @@ public class Servings {
     private Long servingId;
 
     @ManyToOne
-    @JoinColumn(name = "tableId", nullable = false)
+    @JoinColumn(name = "tableId", referencedColumnName = "tableId", nullable = false)
     private Tables table;
 
     @Column(nullable = false)
@@ -32,36 +32,4 @@ public class Servings {
     @Column(nullable = false)
     private LocalDateTime endTime;
 
-    // Getters and Setters
-    public Long getServingId() {
-        return servingId;
-    }
-
-    public void setServingId(Long servingId) {
-        this.servingId = servingId;
-    }
-
-    public Tables getTable() {
-        return table;
-    }
-
-    public void setTable(Tables table) {
-        this.table = table;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
 }

@@ -23,29 +23,4 @@ public class Tables {
 
     @Column(nullable = false)
     private Boolean isOccupied;
-
-    // Getter ve Setter'lar
-    public Long getTableId() { 
-        return tableId;
-    }
-
-    public void setTableId(Long tableId) {
-        this.tableId = tableId;
-    }
-
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
-    public Boolean getIsOccupied() {
-        return isOccupied;
-    }
-
-    public void setIsOccupied(Boolean isOccupied) {
-        this.isOccupied = isOccupied;
-    }
 }

@@ -10,12 +10,12 @@ public class ProductsMapper {
 
     public static ProductsDTO toDTO(Products product) {
         ProductsDTO dto = new ProductsDTO();
-        dto.setProductsId(product.getProductsId());
+        dto.setProductsId(product.getProductId());
         dto.setName(product.getName());
         dto.setPrice(product.getPrice());
         // Malzemeleri ID'leriyle eşleştir
-        List<Long> ingredientIds = product.getIngredients().stream()
-                                           .map(ingredient -> ingredient.getIngredientsId())
+        List<Long> ingredientIds = product.getIngredient().stream()
+                                           .map(ingredient -> ingredient.getIngredientId())
                                            .collect(Collectors.toList());
         dto.setIngredientIds(ingredientIds);
         return dto;
@@ -23,7 +23,7 @@ public class ProductsMapper {
 
     public static Products toEntity(ProductsDTO dto) {
         Products product = new Products();
-        product.setProductsId(dto.getProductsId());
+        product.setProductId(dto.getProductsId());
         product.setName(dto.getName());
         product.setPrice(dto.getPrice());
         // Malzemeleri ID'leriyle eşleştir

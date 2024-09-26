@@ -22,32 +22,36 @@ public class OrdersService {
         this.ordersRepository = ordersRepository;
     }
 
+    public List<Orders> getOrdersByServings(Servings servings) {
+        return ordersRepository.findByServings(servings); // Düzeltme
+    }
+
     public OrdersDTO createOrder(OrdersDTO orderDTO, Tables table, Servings servings, List<Products> products) {
         Orders order = OrdersMapper.toEntity(orderDTO, table, servings, products);
         Orders savedOrder = ordersRepository.save(order);
         return OrdersMapper.toDTO(savedOrder);
     }
 
-    public List<OrdersDTO> getOrdersByTableId(Long tableId) {
-        List<Orders> orders = ordersRepository.findByTableId(tableId);
+    public List<OrdersDTO> getOrdersByTableId(Long id) {
+        List<Orders> orders = ordersRepository.findByTable_TableId(id);
         return orders.stream()
                      .map(OrdersMapper::toDTO)
                      .toList();
     }
 
-    public List<OrdersDTO> getOrdersByServingId(Long servingId) {
-        List<Orders> orders = ordersRepository.findByServingId(servingId);
+    public List<OrdersDTO> getOrdersByServingId(Long id) {
+        List<Orders> orders = ordersRepository.findByServings_ServingId(id);
         return orders.stream()
                      .map(OrdersMapper::toDTO)
                      .toList();
     }
 
-    public OrdersDTO getOrderById(Long orderId) {
-        Orders order = ordersRepository.findById(orderId).orElse(null);
+    public OrdersDTO getOrderById(Long id) {
+        Orders order = ordersRepository.findById(id).orElse(null);
         return order != null ? OrdersMapper.toDTO(order) : null;
     }
 
-    public void deleteOrder(Long orderId) {
-        ordersRepository.deleteById(orderId);
+    public void deleteOrder(Long id) {
+        ordersRepository.deleteById(id);
     }
 }

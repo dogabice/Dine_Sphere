@@ -12,7 +12,7 @@ import lombok.Data;
 public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productsId;
+    private Long productId;
 
     @Column(nullable = false)
     private String name;
@@ -20,44 +20,16 @@ public class Products {
     @Column(nullable = false)
     private Double price;
 
+    @ManyToOne
+    @JoinColumn(name = "ingredients_id")
+    private Ingredients ingredients;
+
     @ManyToMany
     @JoinTable(
-        name = "product_ingredients",
+        name = "product_ingredient",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
-    private List<Ingredients> ingredients; // Ürünle ilişkili malzemeler
-
-    // Getters and Setters
-    public Long getProductsId() {
-        return productsId;
-    }
-
-    public void setProductsId(Long id) {
-        this.productsId = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public List<Ingredients> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredients> ingredients) {
-        this.ingredients = ingredients;
-    }
+    private List<Ingredients> ingredient; // Ürünle ilişkili malzemeler
 }
+

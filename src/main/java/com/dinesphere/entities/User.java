@@ -1,9 +1,7 @@
 package com.dinesphere.entities;
 
 import jakarta.persistence.*;
-
 import lombok.Data;
-
 
 @Data
 @Entity
@@ -23,36 +21,4 @@ public class User {
     @Column(nullable = false)
     private UserRole role;
 
-    // Getters and Setters
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
 }
