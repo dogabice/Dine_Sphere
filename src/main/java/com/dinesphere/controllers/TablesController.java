@@ -15,71 +15,72 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
-@RequestMapping("/api/tables")
+@RequestMapping("/tables")
 public class TablesController {
+
     @Autowired
-    private TablesService tablesService;
+    private final TablesService tablesService;
 
-    @Operation(summary = "Create a new table")
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Table created"),
-        @ApiResponse(responseCode = "400", description = "Invalid input") })
-    @PostMapping
-    public ResponseEntity<TablesDTO> createTable(@RequestBody TablesDTO tableDTO) {
-        TablesDTO createdTable = tablesService.createTable(tableDTO);
-        return new ResponseEntity<>(createdTable, HttpStatus.CREATED);
+    public TablesController(TablesService tablesService) {
+        this.tablesService = tablesService;
     }
 
-    @Operation(summary = "Get table by ID")
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Found the table"),
-        @ApiResponse(responseCode = "404", description = "Table not found") })
-    @GetMapping("/{id}")
-    public ResponseEntity<TablesDTO> getTable(@PathVariable Long id) {
-        Optional<TablesDTO> tableDTO = tablesService.getTable(id);
-        return tableDTO.map(ResponseEntity::ok)
-                       .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @Operation(summary = "Delete a table by ID")
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "204", description = "Table deleted") })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTable(@PathVariable Long id) {
-        tablesService.deleteTable(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @Operation(summary = "Open serving for a table")
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Serving opened"),
-        @ApiResponse(responseCode = "409", description = "Conflict occurred") })
-    @PostMapping("/{tableId}/servings")
-    public ResponseEntity<Void> openServing(@PathVariable Long tableId) {
-        boolean isServingOpened = tablesService.openServingForTable(tableId);
-        if (isServingOpened) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-    }
-
-    @Operation(summary = "Get all tables")
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "List of tables") })
+    @Operation(summary = "Get All Tables")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Success")
+    })
     @GetMapping
     public ResponseEntity<List<TablesDTO>> getAllTables() {
         List<TablesDTO> tables = tablesService.getAllTables();
         return ResponseEntity.ok(tables);
     }
 
-    @Operation(summary = "Generate end of day report")
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "End of day report") })
-    @GetMapping("/report")
-    public ResponseEntity<String> endOfDayReport() {
-        String report = tablesService.generateEndOfDayReport();
-        return ResponseEntity.ok(report);
+    @Operation(summary = "Get Table By ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Success"),
+        @ApiResponse(responseCode = "404", description = "Table cannot be found.")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<TablesDTO> getTableById(@PathVariable Long id) {
+        Optional<TablesDTO> table = tablesService.getTable(id);
+        return table.map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-}
 
+    @Operation(summary = "Create new Table")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Created successfully.")
+    })
+    @PostMapping
+    public ResponseEntity<TablesDTO> createTable(@RequestBody TablesDTO tableDTO) {
+        TablesDTO newTable = tablesService.createTable(tableDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTable);
+    }
+
+    @Operation(summary = "Update Table")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Updated successfully."),
+        @ApiResponse(responseCode = "404", description = "Table cannot be found.")
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<TablesDTO> updateTable(@PathVariable Long id, @RequestBody TablesDTO tableDTO) {
+        Optional<TablesDTO> updatedTable = tablesService.updateTable(id, tableDTO);
+        return updatedTable.map(ResponseEntity::ok)
+                           .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @Operation(summary = "Delete Table By ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Success"),
+        @ApiResponse(responseCode = "404", description = "Table cannot be found.")
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTable(@PathVariable Long id) {
+        if (tablesService.deleteTable(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+}

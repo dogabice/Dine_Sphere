@@ -8,7 +8,7 @@ public class TablesMapper {
         TablesDTO dto = new TablesDTO();
         dto.setTableId(table.getTableId());
         dto.setCapacity(table.getCapacity());
-        dto.setIsOccupied(table.getIsOccupied());
+        dto.setOccupied(table.getIsOccupied());
         return dto;
     }
 
@@ -16,7 +16,7 @@ public class TablesMapper {
         Tables table = new Tables();
         table.setTableId(dto.getTableId());
         table.setCapacity(dto.getCapacity());
-        table.setIsOccupied(dto.getIsOccupied());
+        table.setIsOccupied(dto.getOccupied());
         return table;
     }
 }

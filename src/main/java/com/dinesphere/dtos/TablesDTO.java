@@ -1,9 +1,9 @@
 package com.dinesphere.dtos;
 
-public class TablesDTO {
-    private Long tableId; // Dikkat et: CamelCase kullanımı
+public class TablesDTO { // İsimlendirme 'Table' olarak düzeltildi.
+    private Long tableId;
     private Integer capacity;
-    private Boolean isOccupied;
+    private Boolean occupied; // 'isOccupied' yerine 'occupied' tercih edildi
 
     // Getters and Setters
     public Long getTableId() {
@@ -22,11 +22,11 @@ public class TablesDTO {
         this.capacity = capacity;
     }
 
-    public Boolean getIsOccupied() {
-        return isOccupied;
+    public Boolean getOccupied() { // Daha sade isimlendirme
+        return occupied;
     }
 
-    public void setIsOccupied(Boolean isOccupied) {
-        this.isOccupied = isOccupied;
+    public void setOccupied(Boolean occupied) {
+        this.occupied = occupied;
     }
 }

@@ -1,17 +1,17 @@
 package com.dinesphere.dtos;
 
-public class IngredientsDTO {
-    private Long ingredientsId;
+public class IngredientsDTO { // 'Ingredient' olarak düzeltildi
+    private Long ingredientId; // 'ingredientsId' yerine 'ingredientId' olmalı
     private String name;
     private Double quantity;
 
     // Getters and Setters
     public Long getIngredientsId() {
-        return ingredientsId;
+        return ingredientId;
     }
 
-    public void setIngredientsId(Long id) {
-        this.ingredientsId = id;
+    public void setIngredientsId(Long ingredientId) { // İsim düzeltildi
+        this.ingredientId = ingredientId;
     }
 
     public String getName() {

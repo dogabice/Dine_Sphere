@@ -2,52 +2,57 @@ package com.dinesphere.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.config.Customizer;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(authz -> authz
-                .anyRequest().authenticated()
+            .csrf(csrf -> csrf.disable()) // CSRF koruması ihtiyaca göre etkinleştirilmelidir
+            .authorizeHttpRequests(authorizeRequests -> 
+                authorizeRequests
+                    .requestMatchers("/api/users/**").hasRole("ADMIN") // User yönetimi için sadece admin
+                    .requestMatchers("/api/public/**").permitAll() // Genel erişim için açık endpoint'ler
+                    .anyRequest().authenticated() // Diğer tüm istekler kimlik doğrulamalıdır
             )
-            .formLogin(form -> form
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .permitAll()
-            );
+            .httpBasic(Customizer.withDefaults()) // Temel kimlik doğrulama
+            .logout(logout -> 
+                logout.permitAll()); // Çıkış işlemi herkes için açık
 
         return http.build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        // Şifreleri BCrypt ile şifreleyerek kullanıcıları ekleyin
+        manager.createUser(User.withUsername("admin")
+                .password(passwordEncoder().encode("adminpassword"))
+                .roles("ADMIN")
+                .build());
+        manager.createUser(User.withUsername("user")
+                .password(passwordEncoder().encode("userpassword"))
+                .roles("USER")
+                .build());
+        return manager;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Bean
-    public UserDetailsService userDetailsService() throws Exception {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        // BCrypt şifreleme ile kullanıcı ekleyin
-        String password = passwordEncoder().encode("adminpassword");
-        UserDetails user = User.withUsername("admin")
-                .password(password)
-                .roles("USER")
-                .build();
-        manager.createUser(user);
-        return manager;
-    }
 }
-

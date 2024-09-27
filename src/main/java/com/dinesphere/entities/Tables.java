@@ -22,5 +22,5 @@ public class Tables {
     private Integer capacity;
 
     @Column(nullable = false)
-    private Boolean isOccupied;
+    private Boolean isOccupied= false;
 }

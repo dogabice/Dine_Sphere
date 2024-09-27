@@ -18,7 +18,7 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "tableId",nullable = false)
     private Tables table; // Siparişin ait olduğu masa
-
+    
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "servingId",nullable = false)

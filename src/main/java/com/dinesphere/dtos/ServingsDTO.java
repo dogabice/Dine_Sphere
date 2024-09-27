@@ -13,8 +13,8 @@ public class ServingsDTO {
         return servingId;
     }
 
-    public void setServingId(Long id) {
-        this.servingId = id;
+    public void setServingId(Long servingId) {
+        this.servingId = servingId;
     }
 
     public Long getTableId() {

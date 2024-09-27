@@ -1,18 +1,13 @@
 package com.dinesphere.dtos;
 
+import com.dinesphere.entities.UserRole;
+
 public class UserDTO {
-    private Long userId;
     private String username;
     private String password; // Şifre genelde açık bir şekilde tutulmamalıdır, bu sadece örnek için
+    private UserRole role; 
 
     // Getters and Setters
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public String getUsername() {
         return username;
@@ -28,5 +23,13 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }

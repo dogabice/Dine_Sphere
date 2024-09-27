@@ -20,16 +20,12 @@ public class Products {
     @Column(nullable = false)
     private Double price;
 
-    @ManyToOne
-    @JoinColumn(name = "ingredients_id")
-    private Ingredients ingredients;
-
     @ManyToMany
     @JoinTable(
         name = "product_ingredient",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
-    private List<Ingredients> ingredient; // Ürünle ilişkili malzemeler
+    private List<Ingredients> ingredientsList; // Ürünün içerdiği malzemeler
 }
 

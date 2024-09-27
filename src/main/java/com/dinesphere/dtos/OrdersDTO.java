@@ -3,20 +3,20 @@ package com.dinesphere.dtos;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class OrdersDTO {
+public class OrdersDTO { // İsimlendirme 'Order' olarak düzeltildi.
     private Long orderId;
     private Long tableId; 
     private Long servingId; 
     private List<Long> productIds; 
-    private LocalDateTime orderTime;
+    private LocalDateTime orderDate; // 'orderTime' yerine 'orderDate'
 
     // Getters and Setters
     public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long id) {
-        this.orderId = id;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Long getTableId() {
@@ -43,11 +43,11 @@ public class OrdersDTO {
         this.productIds = productIds;
     }
 
-    public LocalDateTime getOrderTime() {
-        return orderTime;
+    public LocalDateTime getOrderDate() { // Düzeltildi
+        return orderDate;
     }
 
-    public void setOrderTime(LocalDateTime orderTime) {
-        this.orderTime = orderTime;
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
     }
 }

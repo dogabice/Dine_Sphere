@@ -20,10 +20,7 @@ public class Ingredients {
     @Column(nullable = false)
     private Double quantity;
 
-    @OneToMany(mappedBy = "ingredients")
-    private List<Products> products;
-
-    @ManyToMany(mappedBy = "ingredient")
+    @ManyToMany(mappedBy = "ingredientsList")
     private List<Products> productList; // Ürünlerin bu malzemeyi kullandığı ilişkiler
 }
 

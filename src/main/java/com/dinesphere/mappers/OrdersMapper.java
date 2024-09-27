@@ -19,7 +19,7 @@ public class OrdersMapper {
         dto.setProductIds(order.getProducts().stream()
                                  .map(Products::getProductId) 
                                  .collect(Collectors.toList()));
-        dto.setOrderTime(order.getOrderDate());
+        dto.setOrderDate(order.getOrderDate());
         return dto;
     }
 
@@ -29,7 +29,7 @@ public class OrdersMapper {
         order.setTable(table); 
         order.setServings(servings); 
         order.setProducts(products);
-        order.setOrderDate(dto.getOrderTime());
+        order.setOrderDate(dto.getOrderDate());
         return order;
     }
 }

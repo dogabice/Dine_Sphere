@@ -14,10 +14,10 @@ public class ProductsMapper {
         dto.setName(product.getName());
         dto.setPrice(product.getPrice());
         // Malzemeleri ID'leriyle eşleştir
-        List<Long> ingredientIds = product.getIngredient().stream()
-                                           .map(ingredient -> ingredient.getIngredientId())
-                                           .collect(Collectors.toList());
-        dto.setIngredientIds(ingredientIds);
+        //List<Long> ingredientIds = product.getIngredient().stream()
+        //                                   .map(ingredient -> ingredient.getIngredientId())
+        //                                   .collect(Collectors.toList());
+        //dto.setIngredientIds(ingredientIds);
         return dto;
     }
 
